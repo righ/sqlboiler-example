@@ -1,0 +1,17 @@
+[psql]
+  dbname = "db"
+  host   = "postgres"
+  port   = 5432
+  user   = "usr"
+  pass   = "pw"
+  sslmode = "disable"
+  schema = "public"
+  blacklist = ["migrations", "other"]
+
+[mysql]
+  dbname  = "db"
+  host    = "mysql"
+  port    = 3306
+  user    = "usr"
+  pass    = "pw"
+  sslmode = "false"

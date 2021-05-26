@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  app:
+    container_name: sqlboiler
+    volumes:
+      - ./:/root/
+    working_dir: /root/
+    build: .
+    tty: true
+    networks:
+      - sqlboiler-network
+
+  mysql:
+    image: mariadb:latest
+    container_name: sqlboiler-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: pw
+    volumes:
+      - ./data/mysql/:/var/lib/
+    expose:
+      - "3306"
+    networks:
+      - sqlboiler-network
+    ports:
+      - "3306:3306"
+
+  postgres:
+    container_name: sqlboiler-postgres
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: usr
+      POSTGRES_PASSWORD: pw
+      POSTGRES_DB: db
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+    expose:
+      - "5432"
+    volumes:
+      - ./data/postgresql/:/var/lib/postgresql/data
+    networks:
+      - sqlboiler-network
+
+networks:
+  sqlboiler-network:
+
